@@ -1,17 +1,21 @@
+const dotenv = require('dotenv');
+dotenv.config();
 var path = require('path')
 const express = require('express')
 const mockAPIResponse = require('./mockAPI.js')
 const app = express()
-const aylinet = require('aylien_textapi');
+const aylien = require('aylien_textapi');
 
 app.use(express.static('dist'))
 
 console.log(__dirname)
 
 const textapi = new aylien({
-  application_id: "a5add80e",
-  application_key: "fec8ea8aa52aa5f7c1e10bc2f649b8cc"
+  application_id: process.env.API_ID,
+  application_key: process.env.API_KEY
 });
+
+console.log(textapi._options)
 
 app.get('/', function (req, res) {
     // res.sendFile('dist/index.html')
