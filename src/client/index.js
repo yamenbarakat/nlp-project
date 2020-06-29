@@ -10,3 +10,9 @@ import './styles/footer.css'
 console.log(checkForName);
 
 console.log("CHANGE!!");
+
+
+export {
+    checkForName,
+    handleSubmit
+}
