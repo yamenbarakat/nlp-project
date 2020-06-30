@@ -26,26 +26,26 @@ const textapi = new aylien({
   application_key: process.env.API_KEY
 });
 
-let data = '';
+// to sotre the retreived data from aylien
+let dataSummarize;
 
-// detect the language of the text and post the data
+// summarizing the provided document link
 app.post('/postText', function (req, res) {
-  console.log(req.body)
-  textapi.language({
-    text: "good"
+  console.log(req.body.url)
+  textapi.summarize({
+    url: req.body.url
   }, function(error, response) {
     if (error === null) {
-      data = response.lang;
-      console.log(data);
-      res.send(data);
+      dataSummarize = response.sentences;
+      console.log(dataSummarize)
+      res.send(dataSummarize)
     }
   });
 })
 
 
-app.get('/textapi', function (req, res) {
-  // res.sendFile('dist/index.html')
-  res.send(data)
+app.get('/textSummarize', function (req, res) {
+  res.send(dataSummarize)
 })
 
 console.log(textapi._options)

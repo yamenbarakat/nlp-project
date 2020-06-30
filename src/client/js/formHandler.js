@@ -1,3 +1,5 @@
+const results = document.getElementById('results');
+
 function handleSubmit(event) {
     event.preventDefault()
 
@@ -5,25 +7,29 @@ function handleSubmit(event) {
     let formText = document.getElementById('name').value
     Client.checkForName(formText)
 
-    // check if the formText has letters value
-    if (!formText || typeof(formText) === 'number') {
-        alert('only letters acceptable') 
-        return false
-    }
-
     // post the data of formText
     fetch('/postText', {
         method: 'POST',
         credentials: 'same-origin',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ data: formText })
+        body: JSON.stringify({ url: formText })
     })
     .then(data => {
-        data.json()
+        console.log(data);
+        getText();
     })
-    .then(data => {
-        console.log(data)
-    })
+
+    const getText = () => {
+        fetch('/textSummarize')
+        .then(data => data.json())
+        .then(data => {
+            for(let sentence of data) {
+                let newPara = document.createElement('p');
+                newPara.textContent = sentence;
+                results.append(newPara)
+            }
+        })
+    }
 
 }
 
