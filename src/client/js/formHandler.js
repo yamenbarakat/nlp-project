@@ -1,8 +1,10 @@
 const results = document.getElementById('results');
+const form = document.getElementById('url');
 
-function handleSubmit(event) {
+const handleSubmit = (event) => {
     event.preventDefault()
 
+    console.log(123)
     // check what text was put into the form field
     let formText = document.getElementById('name').value
     Client.checkForName(formText)
@@ -18,19 +20,21 @@ function handleSubmit(event) {
         console.log(data);
         getText();
     })
-
-    const getText = () => {
-        fetch('/textSummarize')
-        .then(data => data.json())
-        .then(data => {
-            for(let sentence of data) {
-                let newPara = document.createElement('p');
-                newPara.textContent = sentence;
-                results.append(newPara)
-            }
-        })
-    }
-
 }
 
-export { handleSubmit }
+const getText = () => {
+    fetch('/textSummarize')
+    .then(data => data.json())
+    .then(data => {
+        for(let sentence of data) {
+            let newPara = document.createElement('p');
+            newPara.textContent = sentence;
+            results.append(newPara)
+        }
+        console.log(data)
+        return data
+    })
+}
+
+form.addEventListener('submit', handleSubmit);
+

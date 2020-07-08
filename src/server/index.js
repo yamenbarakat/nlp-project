@@ -20,7 +20,6 @@ app.use(bodyParser.urlencoded({
 
 console.log(__dirname)
 
-
 const textapi = new aylien({
   application_id: process.env.API_ID,
   application_key: process.env.API_KEY
