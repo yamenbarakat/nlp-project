@@ -38,3 +38,4 @@ const getText = () => {
 
 form.addEventListener('submit', handleSubmit);
 
+export {getText}

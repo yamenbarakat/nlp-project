@@ -5,9 +5,7 @@ console.log(getText)
 describe("Filter function", () => {
   test("it should be what i want", () => {
 
-    const data = [];
-
-    console.log(data);
+    console.log(getText)
 
     expect(data).toBeFalsy();
 
