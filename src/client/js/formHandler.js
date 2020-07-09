@@ -1,8 +1,18 @@
 const results = document.getElementById('results');
-const form = document.getElementById('url');
+const formSum = document.getElementById('form-sum');
+const urlInput = document.querySelector('input[type="url"]');
 
-const handleSubmit = (event) => {
+console.log(urlInput)
+
+function handleSubmit(event) {
     event.preventDefault()
+
+    const urlVal = urlInput.value;
+
+    if (!urlVal.startsWith('http')) {
+        console.log('false url')
+        return false
+    }
 
     console.log(123)
     // check what text was put into the form field
@@ -31,11 +41,12 @@ const getText = () => {
             newPara.textContent = sentence;
             results.append(newPara)
         }
-        console.log(data)
+        urlInput = '';
         return data
     })
 }
 
-form.addEventListener('submit', handleSubmit);
+export {handleSubmit}
 
-export {getText}
+
+
