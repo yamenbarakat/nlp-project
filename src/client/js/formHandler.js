@@ -1,20 +1,20 @@
 const results = document.getElementById('results');
-const formSum = document.getElementById('form-sum');
 const urlInput = document.querySelector('input[type="url"]');
 
-console.log(urlInput)
 
-function handleSubmit(event) {
+// check the submitted form if it's link, then fetch the data from the link and post it, then get it to update the UI
+const handleSubmit = (event) => {
+
+    // prevent the default behavior of submit
     event.preventDefault()
 
+    // store the url value and then check it if it's link
     const urlVal = urlInput.value;
 
     if (!urlVal.startsWith('http')) {
-        console.log('false url')
         return false
     }
 
-    console.log(123)
     // check what text was put into the form field
     let formText = document.getElementById('name').value
     Client.checkForName(formText)
@@ -41,12 +41,10 @@ const getText = () => {
             newPara.textContent = sentence;
             results.append(newPara)
         }
-        urlInput = '';
+        urlInput.value = '';
         return data
     })
 }
 
-export {handleSubmit}
-
-
+export { handleSubmit }
 

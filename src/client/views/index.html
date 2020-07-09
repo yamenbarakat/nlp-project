@@ -18,9 +18,9 @@
 
         <main>
             <section>
-                <form id="form-sum" onsubmit="Client.handleSubmit(event)">
+                <form id="form-sum" onsubmit="return Client.handleSubmit(event)">
                     <input id="name" type="url" name="url" placeholder="http://example.com" required>
-                    <input type="submit" name="url" value="submit" onsubmit="Client.handleSubmit(event)">
+                    <input type="submit" name="url" value="submit">
                 </form>
             <section>
 
