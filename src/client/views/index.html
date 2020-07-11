@@ -19,7 +19,7 @@
         <main>
             <section>
                 <form id="form-sum" onsubmit="return Client.handleSubmit(event)">
-                    <input id="name" type="url" name="url" placeholder="http://example.com" required>
+                    <input id="url" type="url" name="url" placeholder="http://example.com" required>
                     <input type="submit" name="url" value="submit">
                 </form>
             <section>
@@ -34,5 +34,15 @@
             <p>This is a footer</p>
         </footer>
 
+        <!-- call the register service worker function if the browser supports service workers  -->
+        <script>
+            // Check that service workers are supported
+            if ('serviceWorker' in navigator) {
+                // Use the window load event to keep the page load performant
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('/service-worker.js');
+                });
+            }
+        </script>
     </body>
 </html>

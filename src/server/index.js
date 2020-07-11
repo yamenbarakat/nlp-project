@@ -11,6 +11,7 @@ const aylien = require('aylien_textapi');
 app.use(express.static('dist'))
 
 app.use(cors())
+
 // to use json
 app.use(bodyParser.json())
 // to use url encoded values
@@ -18,36 +19,33 @@ app.use(bodyParser.urlencoded({
   extended: true
 }))
 
-console.log(__dirname)
-
+// store the id and key of aylien text api
 const textapi = new aylien({
   application_id: process.env.API_ID,
   application_key: process.env.API_KEY
 });
 
-// to sotre the retreived data from aylien
+// initialize varible to sotre the retreived data from aylien
 let dataSummarize;
 
 // summarizing the provided document link
 app.post('/postText', function (req, res) {
-  console.log(req.body.url)
   textapi.summarize({
     url: req.body.url
   }, function(error, response) {
     if (error === null) {
+      // store the summarized document in dataSummarize
       dataSummarize = response.sentences;
-      console.log(dataSummarize)
       res.send(dataSummarize)
     }
   });
 })
 
-
+// send the dataSummarize by calling this route
 app.get('/textSummarize', function (req, res) {
   res.send(dataSummarize)
 })
 
-console.log(textapi._options)
 
 app.get('/', function (req, res) {
     // res.sendFile('dist/index.html')
