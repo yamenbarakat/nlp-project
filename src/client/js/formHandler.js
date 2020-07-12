@@ -30,10 +30,12 @@ const getText = () => {
     .then(data => data.json())
     .then(data => {
         for (const key in data) {
-            const p = document.createElement('p');
-            p.textContent = key + ': ' + data[key];
-            console.log(data.key)
-            results.append(p)
+            if (data.hasOwnProperty(key)) {
+                const p = document.createElement('p');
+                p.textContent = key + ': ' + data[key];
+                console.log(data.key);
+                results.append(p);
+            }
         }
         textInput.value = '';
         return data
