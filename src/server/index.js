@@ -25,27 +25,31 @@ const textapi = new aylien({
   application_key: process.env.API_KEY
 });
 
-// initialize varible to sotre the retreived data from aylien
-let dataSummarize;
+// to sotre the retreived data from aylien
+let textData = {};
 
 // summarizing the provided document link
 app.post('/postText', function (req, res) {
-  textapi.summarize({
-    url: req.body.url
+  textapi.sentiment({
+    text: req.body.text
   }, function(error, response) {
     if (error === null) {
-      // store the summarized document in dataSummarize
-      dataSummarize = response.sentences;
-      res.send(dataSummarize)
+      // store the data in textData and send it
+      textData.polarity = response.polarity;
+      textData.subjectivity = response.subjectivity;
+      textData.text = response.text;
+      textData.polarity_confidence = response.polarity_confidence;
+      textData.subjectivity_confidence = response.subjectivity_confidence;
+      console.log(textData)
+      res.send(textData)
     }
   });
 })
 
-// send the dataSummarize by calling this route
-app.get('/textSummarize', function (req, res) {
-  res.send(dataSummarize)
+// send the textData by calling this route
+app.get('/getText', function (req, res) {
+  res.send(textData)
 })
-
 
 app.get('/', function (req, res) {
     // res.sendFile('dist/index.html')
@@ -53,8 +57,8 @@ app.get('/', function (req, res) {
 })
 
 // designates what port the app will listen to for incoming requests
-app.listen(8000, function () {
-    console.log('Example app listening on port 8000!')
+app.listen(8088, function () {
+    console.log('Example app listening on port 8081!')
 })
 
 app.get('/test', function (req, res) {

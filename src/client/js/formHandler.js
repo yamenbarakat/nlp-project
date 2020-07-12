@@ -1,5 +1,5 @@
 const results = document.getElementById('results');
-const urlInput = document.getElementById('url');
+const textInput = document.getElementById('text');
 
 
 // check the submitted form if it's link, then fetch the data from the link and post it, then get it to update the UI
@@ -8,15 +8,15 @@ const handleSubmit = (event) => {
     // prevent the default behavior of submit
     event.preventDefault()
 
-    // store the url value
-    const urlVal = urlInput.value;
+    // validate the text input 
+    
 
     // post the retreived data of urlVal
-    fetch('/postText', {
+    fetch('http://localhost:8088/postText', {
         method: 'POST',
         credentials: 'same-origin',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url: urlVal })
+        body: JSON.stringify({text: textInput.value})
     })
     .then(data => {
         console.log(data);
@@ -26,15 +26,16 @@ const handleSubmit = (event) => {
 
 // get the data to update UI
 const getText = () => {
-    fetch('/textSummarize')
+    fetch('http://localhost:8088/getText')
     .then(data => data.json())
     .then(data => {
-        for(let sentence of data) {
-            let newPara = document.createElement('p');
-            newPara.textContent = sentence;
-            results.append(newPara)
+        for (const key in data) {
+            const p = document.createElement('p');
+            p.textContent = key + ': ' + data[key];
+            console.log(data.key)
+            results.append(p)
         }
-        urlInput.value = '';
+        textInput.value = '';
         return data
     })
 }
