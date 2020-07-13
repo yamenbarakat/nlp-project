@@ -5,10 +5,10 @@ test('check the acceptable name', () => {
     const output = [
         "Picard",
         "Janeway",
-        "Kirk",
+        "Kirks",
         "Archer",
         "Georgiou"
     ]
 
-    expect(output).toContain(checkForName('Kirk'))
+    expect(output).toContain(checkForName('Kirks'))
 });

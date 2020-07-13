@@ -3,16 +3,14 @@ function checkForName(inputText) {
     let names = [
         "Picard",
         "Janeway",
-        "Kirk",
+        "Kirks",
         "Archer",
         "Georgiou"
     ]
 
     if(names.includes(inputText)) {
-        alert('welcome')
+        alert(`welcome ${inputText}`)
         return inputText
-    } else {
-        alert('please enter a valid name')
     }
 }
 
